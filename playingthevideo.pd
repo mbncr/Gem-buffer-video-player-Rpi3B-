@@ -1,0 +1,195 @@
+#N canvas 730 193 801 851 10;
+#X floatatom 24 133 5 0 0 0 - - -, f 5;
+#X msg 24 80 allocate 720 576 4;
+#X obj 24 112 pix_buffer thething 300;
+#X msg 24 57 loadbang;
+#X obj 26 237 gemhead;
+#X obj 26 263 pix_film;
+#X obj 26 350 t a b;
+#X obj 71 393 i;
+#X obj 98 393 + 1;
+#X obj 71 371 spigot;
+#X obj 108 327 t b b;
+#X msg 108 350 1;
+#X obj 108 260 bng 15 250 50 0 empty empty empty 0 -6 0 8 -262144 -1
+-1;
+#X text 129 260 start recording into the buffer;
+#X msg 108 217 open \$1;
+#X obj 108 196 openpanel;
+#X obj 108 178 bng 15 250 50 0 empty empty empty 0 -6 0 8 -262144 -1
+-1;
+#X msg 118 371 0;
+#X floatatom 71 446 5 0 0 0 - - -, f 5;
+#X msg 115 239 auto 1;
+#X obj 71 419 moses 10;
+#X obj 484 118 unpack f f f;
+#X msg 230 83 resize \$1;
+#X obj 230 48 r nbframes;
+#X obj 134 389 r nbframes;
+#X obj 26 509 pix_buffer_write thething;
+#X floatatom 484 142 5 0 0 0 - - -, f 5;
+#X floatatom 524 142 5 0 0 0 - - -, f 5;
+#X floatatom 565 142 5 0 0 0 - - -, f 5;
+#X obj 484 168 s nbframes;
+#N canvas 0 50 454 304 gemwin 0;
+#X obj 132 136 gemwin;
+#X obj 67 89 outlet;
+#X obj 67 10 inlet;
+#X obj 67 41 route create;
+#X msg 67 70 set destroy;
+#X msg 182 68 set create;
+#X msg 132 112 create \, 1;
+#X msg 238 112 destroy;
+#N canvas 87 154 247 179 Gem.init 0;
+#X obj 118 46 loadbang;
+#X msg 118 81 reset;
+#X obj 118 113 outlet;
+#X connect 0 0 1 0;
+#X connect 1 0 2 0;
+#X restore 289 80 pd Gem.init;
+#X connect 2 0 3 0;
+#X connect 3 0 4 0;
+#X connect 3 0 6 0;
+#X connect 3 1 5 0;
+#X connect 3 1 7 0;
+#X connect 4 0 1 0;
+#X connect 5 0 1 0;
+#X connect 6 0 0 0;
+#X connect 7 0 0 0;
+#X connect 8 0 0 0;
+#X restore 837 140 pd gemwin;
+#X msg 838 113 destroy;
+#X obj 333 421 gemhead;
+#X obj 333 463 pix_texture;
+#X obj 333 486 square 4;
+#X floatatom 498 411 5 0 0 0 - - -, f 5;
+#X obj 333 443 pix_buffer_read thething;
+#X obj 52 295 s datafilm;
+#X obj 484 91 r datafilm;
+#X obj 498 330 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#N canvas 36 227 798 853 count 0;
+#X obj 51 24 inlet;
+#X obj 29 637 outlet;
+#X obj 161 20 inlet;
+#X msg 159 96 0;
+#X floatatom 51 182 5 0 0 0 - - -, f 5;
+#X floatatom 364 374 0 0 0 0 - - -;
+#X floatatom 435 216 0 0 0 0 - - -;
+#X obj 435 244 t b f;
+#X obj 364 348 +;
+#X msg 134 181 1;
+#X obj 91 244 +;
+#X floatatom 74 310 5 0 0 0 - - -, f 5;
+#X obj 155 244 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 219 428 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 215 361 sel 30;
+#X msg 223 495 0;
+#X obj 192 639 outlet;
+#X obj 161 68 sel 1;
+#X floatatom 251 216 5 0 0 0 - - -, f 5;
+#X obj 260 74 inlet;
+#X obj 287 277 - 1;
+#X connect 0 0 9 0;
+#X connect 0 0 12 0;
+#X connect 2 0 17 0;
+#X connect 3 0 4 0;
+#X connect 4 0 11 0;
+#X connect 6 0 7 0;
+#X connect 7 1 8 1;
+#X connect 8 0 5 0;
+#X connect 9 0 10 0;
+#X connect 10 0 11 0;
+#X connect 11 0 10 1;
+#X connect 11 0 1 0;
+#X connect 11 0 14 0;
+#X connect 13 0 15 0;
+#X connect 14 0 13 0;
+#X connect 15 0 16 0;
+#X connect 17 0 3 0;
+#X connect 18 0 20 0;
+#X connect 19 0 18 0;
+#X connect 20 0 14 1;
+#X restore 498 384 pd count 30;
+#X obj 572 341 r nbframes;
+#X obj 498 360 metro 30;
+#X text 18 11 Declaring the pix_buffer \, allocating enough memory
+for one video file;
+#X text 462 18 Send directly the frame count to : - Resize the buffer
+- Set the number of frames in the moses object - Initialize the frame
+counter for later playback;
+#X text 322 523 Basic counter for playing back the frames stored in
+the buffer;
+#X text 25 548 Taken from the 25.buffer.pd example;
+#X obj 29 622 cnv 15 450 200 empty empty empty 20 12 0 14 -195568 -66577
+0;
+#X text 473 478 comment;
+#X obj 26 205 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 333 391 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X text 496 309 PLAY;
+#X text 34 639 Note : Video file : .mov converted to .avi via ffmpeg
+: ffmpeg -i input -vf scale=720x576 -c:v mjpeg -q:v 2 -an output.avi
+The video playback is as irregular with this method as it is with basic
+playback. In that case \, I plan to have 20 short videos files pre-buffered
+(or not) \, triggered by a chain pressed-key / random video \, + one
+video loop that comes back after x-mn of inactivity Any help will be
+appreciated.;
+#X obj 215 200 symbol;
+#X msg 215 178 lastchance.avi;
+#X msg 215 136 native_v1.mov;
+#X msg 215 157 720_mpeg2.mp4;
+#X connect 1 0 2 0;
+#X connect 2 0 0 0;
+#X connect 3 0 1 0;
+#X connect 4 0 5 0;
+#X connect 5 0 6 0;
+#X connect 5 1 37 0;
+#X connect 6 0 25 0;
+#X connect 6 1 9 0;
+#X connect 7 0 8 0;
+#X connect 7 0 20 0;
+#X connect 8 0 7 1;
+#X connect 9 0 7 0;
+#X connect 10 0 11 0;
+#X connect 10 1 17 0;
+#X connect 11 0 9 1;
+#X connect 12 0 10 0;
+#X connect 14 0 5 0;
+#X connect 14 0 12 0;
+#X connect 14 0 19 0;
+#X connect 15 0 14 0;
+#X connect 16 0 15 0;
+#X connect 17 0 7 1;
+#X connect 18 0 25 1;
+#X connect 19 0 5 0;
+#X connect 20 0 18 0;
+#X connect 21 0 26 0;
+#X connect 21 1 27 0;
+#X connect 21 2 28 0;
+#X connect 22 0 2 0;
+#X connect 23 0 22 0;
+#X connect 24 0 20 1;
+#X connect 26 0 29 0;
+#X connect 30 0 31 0;
+#X connect 31 0 30 0;
+#X connect 32 0 36 0;
+#X connect 33 0 34 0;
+#X connect 35 0 36 1;
+#X connect 36 0 33 0;
+#X connect 38 0 21 0;
+#X connect 39 0 40 1;
+#X connect 39 0 42 0;
+#X connect 40 0 35 0;
+#X connect 40 1 39 0;
+#X connect 41 0 40 2;
+#X connect 42 0 40 0;
+#X connect 49 0 4 0;
+#X connect 50 0 32 0;
+#X connect 53 0 14 0;
+#X connect 54 0 53 0;
+#X connect 55 0 53 0;
+#X connect 56 0 53 0;
